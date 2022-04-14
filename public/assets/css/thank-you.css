@@ -1,0 +1,52 @@
+.main-header1 {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.main-header2 {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+.t-card {
+  max-width: 50%;
+  min-width: 400px;
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0 1.5rem 4rem rgb(22 28 45 / 10%);
+  padding: 20px;
+  text-align: center;
+}
+.t-card img {
+  width: 30px;
+  margin: auto;
+  margin-bottom: 10px;
+}
+.t-card h4 {
+  font-weight: 800;
+  color: #1285c6;
+  letter-spacing: 1px;
+}
+.t-card p {
+  font-weight: 500;
+  font-size: 17px;
+}
+.t-card span {
+  font-size: 14px;
+}
+.t-card-2-icon img {
+  width: 40px;
+}
+@media(max-width:500px){
+  .t-card{
+    min-width: 300px;
+  }
+}
+@media only screen and (min-width: 1600px) and (max-width: 2560px) {
+  .container{
+    max-width: 1850px
+  }
+}

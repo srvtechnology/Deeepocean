@@ -1,0 +1,242 @@
+/* global */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+body {
+  font-family: "Poppins", sans-serif;
+}
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+.max-theme-width {
+  margin: 0 auto;
+}
+@media only screen and (max-width: 770px) {
+  .max-theme-width {
+    max-width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .max-theme-width {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+@media only screen and (max-width: 430px) {
+  .max-theme-width {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+@media only screen and (max-width: 380px) {
+}
+@media only screen and (max-width: 330px) {
+}
+
+.btn-accent-blue {
+  width: 149px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  height: 50px;
+  text-align: center;
+  border: none;
+  background: #1285c6;
+  background-size: 300% 100%;
+  box-shadow: rgb(18 133 198 / 23%) 15px 20px 20px 0px;
+  border-radius: 50px;
+}
+.btn-accent-blue:hover {
+  color: #fff;
+}
+
+/* .btn-accent-blue {
+  width: 150px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  height: 50px;
+  text-align: center;
+  border: none;
+  background-size: 300% 100%;
+  background-image: linear-gradient(
+    to right,
+    #25aae1,
+    #4481eb,
+    #04befe,
+    #3f86ed
+  );
+  box-shadow: 0 4px 15px 0 rgb(65 132 234 / 75%);
+  border-radius: 50px;
+  transition: all 0.4s ease-in-out;
+}
+.btn-accent-blue:hover {
+  background-position: 100% 0;
+  moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+  color: #fff;
+} */
+
+/* footer */
+.footer {
+  background-color: #f0f0f0;
+  padding: 60px 200px 0 200px;
+  color: #4c4c4c;
+}
+.footer .top-links {
+}
+.footer .top-links > div {
+}
+.footer .footer-logo1 {
+  width: 35px;
+  height: 30px;
+}
+.footer .footer-logo2 {
+/*  width: 100px;
+  height: 13px;
+  margin-left: 5px;*/
+  width: 60px;
+  height: auto;
+  
+}
+.footer .top-links p {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #7a7a7a;
+}
+.footer .top-links .contact-info {
+  display: flex;
+}
+.footer .top-links .contact-info div {
+  display: flex;
+}
+.footer .top-links .contact-info div img {
+  margin: auto 0;
+}
+.footer .top-links .contact-info p {
+  margin-left: 10px;
+  color: #7a7a7a;
+}
+.footer .top-links ul {
+  list-style: none;
+  /* padding: 0; */
+}
+.footer .top-links ul li {
+  margin-bottom: 10px;
+}
+.footer .top-links ul li a {
+  text-decoration: none;
+  color: #7a7a7a;
+  font-size: 14px;
+}
+.footer .top-links ul .dropdown-divider {
+}
+.footer .bottom-links {
+}
+.footer .bottom-links > div {
+}
+.footer .bottom-links > div p {
+  font-size: 13px;
+  font-weight: 600;
+  color: #7a7a7a;
+  margin-bottom: 30px;
+}
+.footer-logo {
+  /* filter: contrast(10.5) grayscale(1); */
+  margin-right: 10px;
+  width: 24px;
+}
+.btn-outline-primary {
+  margin-top: 20px;
+  padding: 5px 30px;
+  border-radius: 20px;
+  color: #333;
+  font-weight: 500;
+  float: right;
+}
+.tnc p {
+  float: right;
+}
+.footer-social-icon {
+  float: right;
+}
+.footer-social-icon a {
+  text-decoration: none;
+}
+.footer-social-icon a i{
+  font-size: 22px;
+  margin: 0 5px;
+  color: #ababab;
+}
+/* .footer-menu {
+  padding-left: 50px;
+} */
+@media (max-width: 1025px) {
+  .footer-social-icon a i{
+    font-size: 18px;
+  }
+  .btn-outline-primary{
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 770px) {
+  .footer {
+    padding: 60px 100px 0 100px;
+  }
+  .footer-social-icon a i{
+    font-size: 20px;
+    margin: 0 2px;
+  }
+  .btn-outline-primary{
+  font-size: 7px;
+  }
+}
+@media (max-width: 500px) {
+  .footer {
+    padding: 60px 0px 0 0px;
+  }
+  .btn-outline-primary {
+    font-size: 12px;
+}
+  .footer .top-links {
+  }
+  .footer-menu {
+    padding-left: 0px;
+  }
+  .tnc p {
+    float: left;
+  }
+  .footer-social-icon {
+    float: left;
+  }
+  .btn-outline-primary {
+    float: left;
+    margin-right: 50%;
+  }
+}
+
+.footer-line {
+  margin-bottom: 30px;
+}
+.demo-heigth-100 {
+  height: 100px;
+}
+html { scroll-behavior: smooth; }
+.nav-link {cursor: pointer;}
+
+/* -- 28-01-2022 -- */
+#more1, #more2, #more3 {
+  display: none;
+}
+@media only screen and (min-width: 1600px) and (max-width: 2560px) {
+  .footer-social-icon {
+    float: none;
+}
+.footer-icon-div {
+  text-align: right;
+}
+}

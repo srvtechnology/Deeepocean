@@ -1,0 +1,110 @@
+.t-card{
+  padding: 20px 50px;
+}
+.heding{
+  width: 100%;
+  background: hsl(199deg 100% 21%);
+  color: #fff;
+  display: flex;
+  padding-top: 10px;
+  padding-left: 30px;
+  border-radius: 5px;
+}
+.card-details{
+  margin: 16px 0;
+}
+.cnd, .echeck{
+  font-weight: 500;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+}
+.cnd input, .echeck input{
+  margin-right: 10px;
+}
+.cnd-img img{
+  width: 130px;
+  margin: auto;
+}
+.full-card-details{
+  width: 100%;
+  background: #f2f2f2;
+  text-align: left;
+  padding: 10px 20px;
+}
+#card-num{
+  background: url(../img/card-visa.png) no-repeat right top;
+  background-size: 40px 25px;
+  padding-right: 15px;
+}
+.form-group label{
+  font-weight: 500;
+  color: #898989;
+  font-size: 14px;
+  margin-bottom: 7px;
+}
+.form-group label span{
+  color: red;
+}
+.full-card-details input{
+  margin-bottom: 20px;
+  background: #f2f2f2;
+}
+.echeck-img img{
+  float: right;
+}
+.form-check{
+  text-align: left;
+  display: flex;
+}
+.form-check label{
+  font-size: 13px;
+  font-weight: 500;
+  margin-left: 10px;
+}
+.form-check label a{
+  text-decoration: none;
+}
+.pay-now-btn{
+  float: left;
+}
+.btn-hover {
+  width: 150px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  margin-top: 15px;
+  height: 50px;
+  text-align: center;
+  border: none;
+  background-size: 300% 100%;
+  background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);
+  box-shadow: 0 4px 15px 0 rgb(65 132 234 / 75%);
+  border-radius: 50px;
+  transition: all .4s ease-in-out;
+}
+.btn-hover:hover {
+  background-position: 100% 0;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+@media(max-width:768px){
+  .t-card {
+    padding: 5px;
+}
+  .cnd, .echeck {
+    font-size: 10px;
+}
+.cnd input, .echeck input {
+  margin-right: 0px;
+}
+.full-card-details {
+  padding: 10px 5px;
+}
+.form-group label {
+  font-size: 10px;
+}
+}
+
