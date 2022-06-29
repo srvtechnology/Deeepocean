@@ -65,6 +65,7 @@ class CashfreeController extends Controller
             'customerEmail' => $customerEmail,
             'amount' => $amount,
             'created_at' => $ctime,
+            'updated_at' => $ctime,
             'status_id' => 3,
         ]);
         $secretKey =  $this->SECRET_KEY;
@@ -116,7 +117,7 @@ class CashfreeController extends Controller
                 //check weather this promo code already present or not
                 //if present then insert code will be skiped.
 
-                $searchPromo=PromoCode::where('promo_code',$UserDetails->mobile)->count();
+                $searchPromo=PromoCode::where('promo_code',$UserDetails->mobile)->where('is_delete','N')->count();
 
                 if($searchPromo<1){
 
@@ -129,10 +130,10 @@ class CashfreeController extends Controller
 
                 }
 
-                /*promo code mail part start*/
+                /*promo code mail part start -- with condition if user used promo code*/
                 $promoMail=[];
                 if($UserDetails->promo_code_user_id){
-                    $fetch_promo_user=PromoCode::where('user_id',$UserDetails->promo_code_user_id)->first();
+                    $fetch_promo_user=PromoCode::where('user_id',$UserDetails->promo_code_user_id)->where('is_delete','N')->first();
                     $p_details=PaperModel::where('id',$UserDetails->paper)->first();
                     //dd($p_details);
                     $promoMail['promo_discount'] = $p_details->promo_value;
@@ -149,16 +150,16 @@ class CashfreeController extends Controller
 
 
 
-                //update total used_by and total count  of promo_code holder user in promo code table
+         //update total used_by and total count  of promo_code holder user in promo code table
             if($UserDetails->promo_code_user_id){
                 //dd($UserDetails->promo_code_user_id);
                 $updatePromoCodetable=[];
-                $fetchh=PromoCode::where('user_id',$UserDetails->promo_code_user_id)->first();
+                $fetchh=PromoCode::where('user_id',$UserDetails->promo_code_user_id)->where('is_delete','N')->first();
                 //dd($fetchh);
                 $alredy_used_by= $fetchh->used_by;
                 $updatePromoCodetable['total_count']=$fetchh->total_count+1;
                 $updatePromoCodetable['used_by']=$alredy_used_by.','.$UserDetails->id;
-                PromoCode::where('user_id',$UserDetails->promo_code_user_id)->update($updatePromoCodetable);
+                PromoCode::where('user_id',$UserDetails->promo_code_user_id)->where('is_delete','N')->update($updatePromoCodetable);
 
 
             
@@ -312,13 +313,19 @@ public function fail_payment($id){
 
 
  public function cron_job_payment_status(Request $request){
-     $data=OrdereModel::orderBy('id','desc')->skip(0)->take(3)->where('status_id','3')->get();
+     $data=OrdereModel::orderBy('id','desc')->skip(0)->take(20)->where('status_id','3')->get();
      //dd($data);
          $a=[];
          foreach ($data as $key => $value) {
+            if($value->id!="267" &&  $value->id!="226"  &&  $value->id!="225" ){
+
+        
+
+
+
            
            $client = new \GuzzleHttp\Client();
-            $response = $client->request('GET', 'https://api.cashfree.com/pg/orders/'.$value->id.'', [
+            $response = $client->request('GET', 'https://api.cashfree.com/pg/orders/'.@$value->id.'', [
               'headers' => [
                 'Accept' => 'application/json',
                 'x-api-version' => '2022-01-01',
@@ -457,6 +464,7 @@ public function fail_payment($id){
               
                 Mail::to($adminMail)->send(new AdminPaymentEmail($mailDataAdmin));
          }
+     }
      }//close if tag of PAID check
 
      echo"done";

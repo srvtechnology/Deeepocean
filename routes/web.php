@@ -102,7 +102,15 @@ Route::get('/cron-job-payment-update', 'Frontend\CashfreeController@cron_job_pay
 
 
 /*
+
+//cron
 C:\xampp\htdocs\deepocean-1\app\Http\Controllers\Frontend\CashfreeController.php
+
+C:\xampp\htdocs\deepocean-1\routes\web.php
+
+
+
+//admin filter   and USER SUCCSS FAILED INPROGRESS PAYMENTS
 
 C:\xampp\htdocs\deepocean-1\routes\admin.php
 
@@ -110,5 +118,72 @@ C:\xampp\htdocs\deepocean-1\app\Http\Controllers\Admin\Dasboard\DashboardControl
 
 C:\xampp\htdocs\deepocean-1\resources\views\admin\pages\users\paid_users_list.blade.php
 
-C:\xampp\htdocs\deepocean-1\routes\web.php
-*/
+C:\xampp\htdocs\deepocean-1\resources\views\admin\include\left_part.blade.php
+
+
+
+//gst
+C:\xampp\htdocs\deepocean-1\resources\views\frontend\pages\reg_two.blade.php
+
+C:\xampp\htdocs\deepocean-1\app\Http\Controllers\Frontend\RegController.php
+
+C:\xampp\htdocs\deepocean-1\resources\views\admin\pages\users\view_details_page.blade.php
+
+C:\xampp\htdocs\deepocean-1\resources\views\admin\pages\users\paid_users_list.blade.php
+
+
+//edit user
+C:\xampp\htdocs\deepocean-1\resources\views\admin\pages\users\edit.blade.php
+
+C:\xampp\htdocs\deepocean-1\resources\views\admin\pages\users\paid_users_list.blade.php
+
+C:\xampp\htdocs\deepocean-1\app\Http\Controllers\Admin\Dasboard\DashboardController.php
+
+C:\xampp\htdocs\deepocean-1\routes\admin.php
+
+
+
+
+
+
+
+//register form email twice and upi
+
+C:\xampp\htdocs\deepocean-1\resources\views\frontend\pages\reg.blade.php
+
+C:\xampp\htdocs\deepocean-1\app\Http\Controllers\Frontend\RegController.php
+
+C:\xampp\htdocs\deepocean-1\resources\views\admin\pages\users\view_details_page.blade.php
+
+ALTER TABLE `users` ADD `upi` VARCHAR(255) NULL AFTER `mobile`;
+
+ALTER TABLE `users` ADD `trans_type` ENUM('PPY','GPY','PTM','BNK','UPI') NULL AFTER `mobile`, ADD `trans_number` VARCHAR(255) NULL AFTER `trans_type`, ADD `bank_name` VARCHAR(255) NULL AFTER `trans_number`, ADD `acc_no` VARCHAR(255) NULL AFTER `bank_name`, ADD `ifsc_code` VARCHAR(255) NULL AFTER `acc_no`, ADD `bank_user_name` VARCHAR(255) NULL AFTER `ifsc_code`;
+
+
+
+
+
+
+//update user mail part
+C:\xampp\htdocs\deepocean-1\app\Http\Controllers\Admin\Dasboard\DashboardController.php
+
+C:\xampp\htdocs\deepocean-1\app\Mail\UserUpdateEmail.php
+
+C:\xampp\htdocs\deepocean-1\resources\views\mail\update_user.blade.php
+
+
+
+
+//soft delete  and export function   ( alreday done above)
+C:\xampp\htdocs\deepocean-1\app\Http\Controllers\Admin\Dasboard\DashboardController.php
+
+C:\xampp\htdocs\deepocean-1\resources\views\admin\pages\users\paid_users_list.blade.php
+
+C:\xampp\htdocs\deepocean-1\routes\admin.php
+
+C:\xampp\htdocs\deepocean-1\resources\views\admin\pages\users\view_details_page.blade.php
+
+//side bar scrrol
+C:\xampp\htdocs\deepocean-1\resources\views\admin\pages\promo_code\promo_user_list.blade.php
+
+

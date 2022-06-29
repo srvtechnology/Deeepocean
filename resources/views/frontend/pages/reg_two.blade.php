@@ -136,6 +136,7 @@ filter: alpha(opacity=50);
 					<form method="post" action="{{route('reg.two.post')}}" id="frm">
 						@csrf
 						<input type="hidden" name="u_id" value="{{@$user->id}}">
+						<input type="hidden" name="gst" value="" id="gst_rs">
 						<input type="hidden" id="promo_code_user_id" name="promo_code_user_id" value="">
 
 						<div class="input-bdr">
@@ -548,6 +549,8 @@ filter: alpha(opacity=50);
 	 var gst=parseFloat(res.id.amount)*18/100;
 	 var gst_txt=(parseFloat(res.id.amount)*18/100).toFixed(2);
 	 //alert(gst);
+	 //insert gst value to gst hidden field of the form
+	 $("#gst_rs").val(gst_txt);
 	 $("#gst").html('₹'+gst_txt);
 	 var total=(parseFloat(amountt)+gst).toFixed(2);
 	 $("#total").html('₹'+total);
@@ -627,6 +630,8 @@ dateFormat:"yy-mm-dd",
 	    var gst=parseFloat(reserve_rs)*18/100;
 	    var gts_txt=(parseFloat(reserve_rs)*18/100).toFixed(2);
 	    //alert(gst);
+	    //insert gst value to gst hidden field of the form
+	     $("#gst_rs").val(gst);
 	    $("#gst").html('₹'+gts_txt);
 	   
 	    var total=(parseFloat(reserve_rs)+gst).toFixed(2);
@@ -651,6 +656,8 @@ dateFormat:"yy-mm-dd",
 
 		 var gst=parseFloat(newamount)*18/100;
 		 //alert(gst);
+		 //insert gst value to gst hidden field of the form
+	     $("#gst_rs").val(gst);
 		 $("#gst").html('₹'+gst);
 		 var total=(parseFloat(newamount)+gst).toFixed(2);
 		 $("#total").html('₹'+total);

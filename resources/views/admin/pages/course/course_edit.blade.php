@@ -45,8 +45,8 @@
                                
                                     
                                     <div class="form-group rm50">
-                                        <label for="title">Due Amount <span style="color: red;">*</span></label>
-                                        <input type="number"  class="form-control"  placeholder="Enter course"  name="due_amount" value="{{@$course->due_amount}}" >
+                                        <label for="title">Fee <span style="color: red;">*</span></label>
+                                        <input type="number"  class="form-control"  placeholder="Enter Fee"  name="due_amount" value="{{@$course->due_amount}}" >
                                     </div>
                                     
                                     

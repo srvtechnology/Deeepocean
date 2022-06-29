@@ -150,18 +150,27 @@ body {
   width: 24px;
 }
 .btn-outline-primary {
-  margin-top: 20px;
-  padding: 5px 30px;
-  border-radius: 20px;
-  color: #333;
-  font-weight: 500;
-  float: right;
+padding: 15px 30px;
+    font-weight: 500;
+    margin: 20px auto;
+    display: flex;
+    border: none;
+    background: #1285c6 !important;
+    background-size: 300% 100%;
+    box-shadow: rgb(18 133 198 / 23%) 15px 20px 20px 0px;
+    border-radius: 50px;
+    color: #fff;
+    white-space: pre;
+}
+.btn-outline-primary:hover {
+   background: #1285c6;
+   border: none;
 }
 .tnc p {
   float: right;
 }
 .footer-social-icon {
-  float: right;
+  text-align: center;
 }
 .footer-social-icon a {
   text-decoration: none;
@@ -179,7 +188,7 @@ body {
     font-size: 18px;
   }
   .btn-outline-primary{
-    font-size: 10px;
+    font-size: 14px;
   }
 }
 
@@ -192,7 +201,7 @@ body {
     margin: 0 2px;
   }
   .btn-outline-primary{
-  font-size: 7px;
+  font-size: 14px;
   }
 }
 @media (max-width: 500px) {
@@ -213,7 +222,7 @@ body {
   .footer-social-icon {
     float: left;
   }
-  .btn-outline-primary {
+  .footer .btn-outline-primary {
     float: left;
     margin-right: 50%;
   }

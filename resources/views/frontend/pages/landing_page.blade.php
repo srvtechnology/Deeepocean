@@ -135,9 +135,34 @@ input[type=number] {
           .about-us .heading{
             margin-bottom: -20px;
             }
+            .team-btn {
+              margin-top: 30px;
+            }
+           /* .out-insp .btn-outline-primary,*/
+            .adv-board .btn-outline-primary,
+            .btn-banner {
+              margin: auto !important;
+              display: flex;
+            }
 
       }
 
+  .btn-banner{
+        padding: 15px 30px;
+    font-weight: 500;
+    margin: 20px;
+    border: none;
+    background: #fff;
+    background-size: 300% 100%;
+    box-shadow: rgb(18 133 198 / 23%) 15px 20px 20px 0px;
+    border-radius: 50px;
+    color: #1285c6;
+    width: 230px;
+    margin-left: 0;
+  }
+.btn-banner:hover {
+  color: #1285c6;
+}
 
 
   </style>
@@ -159,6 +184,7 @@ input[type=number] {
           <h6 style="margin-bottom: 20px">{{@$banner->text_3}}</h6>
           <p>{{@$banner->text_4}}</p>
          {{--  {!!@$banner->description!!} --}}
+          <button class="btn btn-banner btn-sm" style="background: linear-gradient(to right, #b914d5, #e511ad) !important; !important; !important;color:white;justify-content: center;font-size: 18px"  onclick="location.href='{{route('reg.one.show')}}'">REGISTER</button>
         </div>
         <div class="col-md-4 col-12 banner-form">
           <div class="form-card" style="    z-index: -5;
@@ -287,6 +313,7 @@ input[type=number] {
           @endforeach
          
         </div>
+             <button class="btn btn-outline-primary btn-sm" style="margin-top: 80px; padding: 20px 60px;" onclick="location.href='{{route('reg.one.show')}}'">REGISTER</button>
       </div>
     </div>
 
@@ -372,6 +399,7 @@ input[type=number] {
          
          
         </div>
+        <button class="btn btn-outline-primary btn-sm" style="margin-top: 70px;padding: 20px 60px;"  onclick="location.href='{{route('reg.one.show')}}'">REGISTER</button>
       </div>
     </div>
 
@@ -460,6 +488,7 @@ input[type=number] {
           @endforeach
      
         </div>
+          <button class="btn btn-outline-primary btn-sm team-btn" style="margin-top: 135px;margin-bottom: 0px;padding: 20px 60px;"  onclick="location.href='{{route('reg.one.show')}}'">REGISTER</button>
       </div>
     </div>
 
@@ -685,14 +714,14 @@ $footer=DB::table('footer_content')->first();
               <a target="_blank" href="https://www.facebook.com/Deeep-Ocean-101116969207296">
                 <i class="fab fa-facebook"></i>
               </a>
-              <a target="_blank" href="https://www.instagram.com/deeepoceanedtech/">
+              <a target="_blank" href="https://www.instagram.com/deeepoceanalternativelearning/">
                 <i class="fab fa-instagram"></i>
               </a>
               <a target="_blank" href="https://www.youtube.com/channel/UCNabmmQ-_9J0WxvUxCoykBA">
                 <i class="fab fa-youtube"></i>
               </a>
             </div>
-           {{--  <button class="btn btn-outline-primary btn-sm">SHARE NOW</button> --}}
+             <button class="btn btn-outline-primary btn-sm" onclick="location.href='{{route('reg.one.show')}}'">REGISTER</button>
           </div>
         </div>
         <hr class="footer-line">
@@ -809,7 +838,7 @@ $footer=DB::table('footer_content')->first();
 $( document ).ready(function() {
 
     let text_total1 = $('.better_tex').text();
-    let str1= text_total1.substring(370, 380); 
+    let str1= text_total1.substring(387, 397); 
     var html1= $('.better_tex').html();
     var s1=html1.indexOf(str1);
 
@@ -827,7 +856,7 @@ $(".better_tex").html(text.substring(0)+'<br> <button class="btn btn-accent-blue
 });
 function ccc(){
     let text_total1 = $('.better_tex').text();
-    let str1= text_total1.substring(370, 380); 
+    let str1= text_total1.substring(387, 397); 
     var html1= $('.better_tex').html();
     var s1=html1.indexOf(str1);
 
@@ -865,7 +894,7 @@ $(".better_tex").html(text.substring(0)+'<br> <button class="btn btn-accent-blue
 $( document ).ready(function() {
 
     let text_total2 = $('.better_tex2').text();
-    let str2= text_total2.substring(370, 380); 
+    let str2= text_total2.substring(387, 397); 
     var html2= $('.better_tex2').html();
     var s2=html2.indexOf(str2);
 
@@ -883,7 +912,7 @@ $(".better_tex2").html(text.substring(0)+'<br> <button class="btn btn-accent-blu
 });
 function ccc2(){
     let text_total2 = $('.better_tex2').text();
-    let str2= text_total2.substring(370, 380); 
+    let str2= text_total2.substring(387, 397); 
     var html2= $('.better_tex2').html();
     var s2=html2.indexOf(str2);
     

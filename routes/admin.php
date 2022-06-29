@@ -88,8 +88,19 @@ Route::get('/manage-paper/inactive/{id}','Paper\PaperController@inactive')->name
 
 
  //paid user
- Route::any('/paid-users','Dasboard\DashboardController@paid_user_list')->name('paid.users');
- Route::get('/paid-users/view/{id}','Dasboard\DashboardController@view_details')->name('view.details'); 
+ Route::any('/paid-users/all-data','Dasboard\DashboardController@paid_user_list')->name('paid.users');
+ Route::get('/paid-users/view/{id}','Dasboard\DashboardController@view_details')->name('view.details');
+ //4/18/2022
+ Route::any('/paid-users/success','Dasboard\DashboardController@paid_user_list_success')->name('success.details');
+ Route::any('/paid-users/failed','Dasboard\DashboardController@paid_user_list_failed')->name('failed.details');
+ Route::any('/paid-users/inprogress','Dasboard\DashboardController@paid_user_list_inprogress')->name('inprogress.details');
+ Route::get('/paid-users/edit/{id}','Dasboard\DashboardController@edit_page_user')->name('edit.user.details');
+ Route::post('/paid-users/upd','Dasboard\DashboardController@update_user')->name('user.update');
+  Route::get('delete/{id}','Dasboard\DashboardController@delete_soft')->name('delete.soft');
+  Route::post('exports','Dasboard\DashboardController@export_data')->name('manage.export');
+  
+ 
+
 
 
  //banner Management
@@ -173,7 +184,7 @@ Route::post('/footer-management/update', 'Footer\FooterController@footer_upd')->
 //
 Route::get('/users-promo-code/list', 'PromoCode\PromoCodeController@promo_list')->name('promo.list');
 Route::get('/users-promo-code/details/{id}', 'PromoCode\PromoCodeController@promo_details')->name('promo.details');
-
+Route::get('/users-promo-code/delete/{id}', 'PromoCode\PromoCodeController@delete_soft_promo')->name('promo.delete');
 
 //get subject on papaer pages ajax
 Route::post('/get-subject', 'Paper\PaperController@get_subject')->name('get.subject');

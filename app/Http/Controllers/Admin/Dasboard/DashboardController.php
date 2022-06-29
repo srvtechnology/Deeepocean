@@ -18,6 +18,8 @@ use Mail;
 use App\Mail\AdminForgetPass;
 use Hash;
 use DB;
+use App\Models\PromoCode;
+use App\Mail\UserUpdateEmail;
 
 class DashboardController extends Controller
 {
@@ -40,15 +42,76 @@ class DashboardController extends Controller
 
 
     public function paid_user_list(Request $request){
-    	$data['users']=OrdereModel::orderBy('id','desc');
+    	$data['users']=OrdereModel::orderBy('updated_at','desc')->where('is_delete','N');
 
-        if($request->status){
-            $data['users']=$data['users']->where('status_id',$request->status);
-            $data['res']=$request->status;
+        if($request->from_date && $request->to_date){
+           $from = $request->from_date;
+           $to_prev= $request->to_date;
+           $to=date('Y-m-d', strtotime($to_prev. ' + 1 days'));
+
+            $data['users']=$data['users']->whereBetween('updated_at',[$from, $to])->where('is_delete','N')->OrwhereBetween('created_at',[$from, $to])->where('is_delete','N');
+            $data['res']=$request->all();
         }
         $data['users']=$data['users']->get();
     	return view('admin.pages.users.paid_users_list')->with($data);
     }
+
+
+    /*START-- 4/18/2022*/
+    public function paid_user_list_success(Request $request){
+
+        $data['users']=OrdereModel::orderBy('updated_at','desc')->where('status_id','1')->where('is_delete','N');
+
+        if($request->from_date && $request->to_date){
+           $from = $request->from_date;
+           $to_prev= $request->to_date;
+           $to=date('Y-m-d', strtotime($to_prev. ' + 1 days'));
+
+            $data['users']=$data['users']->whereBetween('updated_at',[$from, $to])->where('status_id','1')->where('is_delete','N')->OrwhereBetween('created_at',[$from, $to])->where('status_id','1')->where('is_delete','N');
+            $data['res']=$request->all();
+        }
+        $data['users']=$data['users']->get();
+       // dd("s");
+        return view('admin.pages.users.paid_users_list')->with($data);
+    }
+
+    public function paid_user_list_failed(Request $request){
+        $data['users']=OrdereModel::orderBy('updated_at','desc')->where('status_id','2')->where('is_delete','N');
+
+        if($request->from_date && $request->to_date){
+           $from = $request->from_date;
+           $to_prev= $request->to_date;
+           $to=date('Y-m-d', strtotime($to_prev. ' + 1 days'));
+
+            $data['users']=$data['users']->whereBetween('updated_at',[$from, $to])->where('status_id','2')->where('is_delete','N')->OrwhereBetween('created_at',[$from, $to])->where('status_id','2')->where('is_delete','N');
+            $data['res']=$request->all();
+        }
+        $data['users']=$data['users']->get();
+        //dd("f");
+        return view('admin.pages.users.paid_users_list')->with($data);
+    }
+
+    public function paid_user_list_inprogress(Request $request){
+        $data['users']=OrdereModel::orderBy('updated_at','desc')->where('status_id','3')->where('is_delete','N');
+
+       if($request->from_date && $request->to_date){
+           $from = $request->from_date;
+           $to_prev= $request->to_date;
+           $to=date('Y-m-d', strtotime($to_prev. ' + 1 days'));
+
+            $data['users']=$data['users']->whereBetween('updated_at',[$from, $to])->where('status_id','3')->where('is_delete','N')->OrwhereBetween('created_at',[$from, $to])->where('status_id','3')->where('is_delete','N');
+            $data['res']=$request->all();
+        }
+        $data['users']=$data['users']->get();
+        return view('admin.pages.users.paid_users_list')->with($data);
+    }
+
+    /*END--4/12/2022*/
+
+
+
+
+    
 
     public function view_details($id){
         $data['details']=OrdereModel::where('id',$id)->first();
@@ -294,6 +357,337 @@ public function code_gen(Request $request){
          return back()->with('success','Updated.');
     }
 
+
+
+
+/*4/18/2022*/
+    public function edit_page_user($id){
+    
+     $userDetails=OrdereModel::where('id',$id)->first();
+     //dd($id,$userDetails);
+     $user_id=$userDetails->customer_id;
+     $data['datas']=User::where('id',$user_id)->first();
+     return view('admin.pages.users.edit')->with($data);
+    }
+
+
+
+    public function update_user(Request $request){
+      //  dd($request->all());
+
+        //update user table
+        $up1=User::where('id',$request->id)->update(['email'=>$request->email,'mobile'=>$request->mobile]);
+
+        //update to payment table
+        $up2=OrdereModel::where('customer_id',$request->id)->update(['customerEmail'=>$request->email,'customerPhone'=>$request->mobile]);
+
+        //update to promo code table
+        $up3=PromoCode::where('user_id',$request->id)->update(['promo_code'=>$request->mobile]);
+
+
+        //update award transaction details
+        $array=[];
+        if($request->pp){
+            $array['trans_number']=$request->pp;
+        }
+        if($request->gp){
+            $array['trans_number']=$request->gp;
+        }
+        if($request->ptm){
+            $array['trans_number']=$request->ptm;
+        }
+        if($request->upi){
+            $array['upi']=$request->upi;
+        }
+
+        if($request->bank_name){
+            $array['bank_name']=$request->bank_name;
+            $array['acc_no']=$request->acc_no;
+            $array['ifsc_code']=$request->ifsc_code;
+            $array['bank_user_name']=$request->bank_user_name;
+        }
+
+        $up4=User::where('id',$request->id)->update($array);
+
+
+        //mail sent to user
+        $userDetails=User::where('id',$request->id)->first();
+         $data = [
+                'email'=>$request->email,
+                'mobile'=>$request->mobile,
+                'name'=>$userDetails->name,
+            ];
+          Mail::send(new UserUpdateEmail($data));
+
+        return back()->with('success','User Details Updated.');
+
+    }
+
+
+    public function delete_soft($id){
+         $dlt=OrdereModel::where('id',$id)->update(['is_delete'=>"Y"]);
+         return back()->with('success','User Details deleted.');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  public function export_data(Request $request)
+   {
+    //dd($request->all());
+   if($request->status_id=="3"){
+    $data['users']=OrdereModel::orderBy('updated_at','desc')->where('is_delete','N');
+  }else{
+    $data['users']=OrdereModel::orderBy('updated_at','desc')->where('is_delete','N');
+  }
+    
+    $status_id=[];
+    if($request->status_id=="0"){
+      $status_id=['1','2','3'];
+    }
+    else{
+      array_push($status_id,$request->status_id);
+    }
+
+
+
+        if($request->from_date_exp && $request->to_date_exp){
+           $from = $request->from_date_exp;
+           $to_prev= $request->to_date_exp;
+           $to=date('Y-m-d', strtotime($to_prev. ' + 1 days'));
+
+            $data['users']=$data['users']->whereBetween('updated_at',[$from, $to])->whereIn('status_id',$status_id)->where('is_delete','N')->OrwhereBetween('created_at',[$from, $to])->whereIn('status_id',$status_id)->where('is_delete','N');
+           
+          }
+          else{
+            $data['users']=$data['users']->whereIn('status_id',$status_id);
+
+          }
+           $data['total_users']=$data['users']->get();
+         // dd($data['total_users'],$request->status_id);
+          
+          if(count($data['total_users']) <1 ){
+            return back()->with('error','No data Found.');
+          }
+
+
+
+
+            
+    $abc=$data['total_users'];
+    // dd($abc);
+    $data = '';
+    
+      $data .='<table>
+      <tr>
+      <th style="border:1px solid white;background-color
+      :#cc00cc;color:white;">Order id</th>
+      <th style="border:1px solid white;background-color
+      :#cc00cc;color:white;">Customer Name</th>
+      <th style="border:1px solid white;background-color
+      :#cc00cc;color:white;">Mobile</th>
+      <th style="border:1px solid white;background-color
+      :#cc00cc;color:white;">Email</th>
+      <th style="border:1px solid white;background-color
+      :#cc00cc;color:white;">DOB</th>
+
+
+      <th style="border:1px solid white;background-color
+      :#cc00cc;color:white;">Fee</th>
+      <th style="border:1px solid white;background-color
+      :#cc00cc;color:white;">Facilitation Fees</th>
+       <th style="border:1px solid white;background-color
+      :#cc00cc;color:white;">Gst</th>
+      <th style="border:1px solid white;background-color
+      :#cc00cc;color:white;">Amount</th>
+     
+
+      <th style="border:1px solid white;background-color
+      :#cc00cc;color:white;">Transaction id</th>
+      <th style="border:1px solid white;background-color
+      :#cc00cc;color:white;">Transaction Status</th>
+
+
+
+      <th style="border:1px solid white;background-color
+      :#cc00cc;color:white;">User Provided Transaction Type</th>
+      <th style="border:1px solid white;background-color
+      :#cc00cc;color:white;">User Provided Transaction Details</th>
+      
+
+
+
+
+
+     <th style="border:1px solid white;background-color
+      :#cc00cc;color:white; width:100px;">Promo Code Used </th>
+       <th style="border:1px solid white;background-color
+      :#cc00cc;color:white; width:100px;">Promo Code User Name </th>
+
+
+
+      <th style="border:1px solid white;background-color
+      :#cc00cc;color:white;">Course  </th>
+      <th style="border:1px solid white;background-color
+      :#cc00cc;color:white;">Subject </th>
+       <th style="border:1px solid white;background-color
+      :#cc00cc;color:white;">Paper </th>
+      <th style="border:1px solid white;background-color
+      :#cc00cc;color:white;">Time</th>
+     
+   
+      </tr>
+      ';
+      foreach (@$abc as $value) {
+        // booking status 
+        if ($value->status_id=="1") {
+          $status = "Success";
+        }elseif ($value->status_id=="2") {
+          $status = "Failed";
+        }elseif($value->status_id=="3"){
+           $status = "In Progress";
+        }
+        else{
+             $status = "In Progress";
+        }
+         //promo code used
+        $promo=\DB::table('promo_code_master')->where('user_id',@$value->getUserDetails->promo_code_user_id)->first();
+        // if($promo){
+        //     if($promo->total_count=="0"){
+        //         $pr="N/A";
+        //     }else{
+        //         $pr=$promo->total_count;
+        //     }
+
+        // }else{
+        //     $pr="N/A";
+        // }
+
+        if($promo){
+          $pr=$promo->promo_code;
+          $user=User::where('id',$promo->user_id)->first();
+          $nm=@$user->name;
+          //dd($nm);
+        }else{
+          $pr="N/A";
+          $nm="N/A";
+        }
+
+        if(@$value->transaction_id){
+          $ti=$value->transaction_id;
+
+        }else{
+          $ti="N/A";
+        }
+
+
+        //transation type and details
+        if(@$value->getUserDetails->trans_type=="PPY"){
+          $type="PhonePe Number";
+          $type_details=@$value->getUserDetails->trans_number;
+        }
+        elseif(@$value->getUserDetails->trans_type=="GPY"){
+          $type="Gpay Number";
+          $type_details=@$value->getUserDetails->trans_number;
+        }
+        elseif(@$value->getUserDetails->trans_type=="PTM"){
+           $type="Paytm Number";
+          $type_details=@$value->getUserDetails->trans_number;
+        }
+        elseif(@$value->getUserDetails->trans_type=="UPI"){
+          $type="UPI ID";
+          $type_details=@$value->getUserDetails->upi;
+        }
+          elseif(@$value->getUserDetails->trans_type=="BNK"){
+            $type="Bank";
+          $type_details="Bank name: ".@$value->getUserDetails->bank_name."<br>".
+          "Account No: ".@$value->getUserDetails->acc_no."<br>".
+          "Ifsc Code: ".@$value->getUserDetails->ifsc_code."<br>".
+          "Account Holder name: ".@$value->getUserDetails->bank_user_name;
+          }
+          else{
+           $type="N/A";
+           $type_details="N/A";
+          }
+
+
+          //time
+          if(@$value->updated_at){
+            $time_date=@$value->updated_at;
+          }else{
+            $time_date=@$value->created_at;
+          }
+         
+  
+        
+
+        $data .= '
+        <tr>
+        <td style="border:1px solid black;">'.@$value->id.'</td>
+        <td style="border:1px solid black;">'.@$value->customerName.'</td>
+        <td style="border:1px solid black;">'.@$value->getUserDetails->mobile.'</td>
+        <td style="border:1px solid black;">'.@$value->getUserDetails->email.'</td>
+        <td style="border:1px solid black;">'.@$value->getUserDetails->dob.'</td>
+        
+        <td style="border:1px solid black;">'.@$value->getUserDetails->getCourseDetails->due_amount.'</td>
+        <td style="border:1px solid black;">'.@$value->getUserDetails->getPaperDetails->amount.'</td>
+        <td style="border:1px solid black;">'.round(@$value->gst,2).'</td>
+        <td style="border:1px solid black;">'.@$value->amount.'</td>
+
+        <td style="border:1px solid black;">'.@$ti.'</td>
+        <td style="border:1px solid black;">'.@$status.'</td>
+
+
+        <td style="border:1px solid black;">'.@$type.'</td>
+        <td style="border:1px solid black;">'.@$type_details.'</td>
+
+
+        <td style="border:1px solid black;">'.@$pr.'</td>
+         <td style="border:1px solid black;">'.@$nm.'</td>
+        <td style="border:1px solid black;">'.@$value->getUserDetails->getCourseDetails->name.'</td>
+        <td style="border:1px solid black;">'.@$value->getUserDetails->getSubjectDetails->name.'</td>
+        <td style="border:1px solid black;">'.@$value->getUserDetails->getPaperDetails->name.'</td>
+
+
+
+        <td style="border:1px solid black;">'.@$time_date.'</td>
+        
+       
+        
+        
+        </tr>';
+      }
+      $data .= '</table>';
+    
+      //dd($data);
+    header("Content-Type: application/xls");    
+    header("Content-Disposition: attachment; filename=details.xls");  
+    header("Pragma: no-cache"); 
+    header("Expires: 0");
+    //dd($data); 
+    echo $data;
+    // return view('admin.modules.employers.manage_employers',$data);
+   }
 
 
 }

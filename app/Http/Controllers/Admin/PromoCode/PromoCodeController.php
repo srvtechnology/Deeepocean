@@ -11,7 +11,7 @@ class PromoCodeController extends Controller
 {
     
     public function promo_list(){
-      $data['promo_users']=PromoCode::get();
+      $data['promo_users']=PromoCode::orderBy('updated_at','desc')->where('is_delete','N')->get();
       return view('admin.pages.promo_code.promo_user_list')->with($data);
     }
 
@@ -31,5 +31,11 @@ class PromoCodeController extends Controller
       $data['usersDetails']=User::whereIn('id',$unique_user_ids)->paginate(10);
      // dd($data);
       return view('admin.pages.promo_code.promo_user_details')->with($data);
+    }
+
+
+     public function delete_soft_promo($id){
+         $dlt=PromoCode::where('id',$id)->update(['is_delete'=>"Y"]);
+         return back()->with('success','Promo Code User Details deleted.');
     }
 }

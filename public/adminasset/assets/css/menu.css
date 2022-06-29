@@ -291,6 +291,7 @@ body.fixed-left .side-menu.left {
   padding-bottom: 70px;
 
   position: fixed;
+  /*overflow-y: scroll;*/
 
 }
 

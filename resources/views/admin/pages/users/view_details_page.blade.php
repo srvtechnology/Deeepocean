@@ -63,7 +63,92 @@
                                                         <br>
                                                         <p class="text-muted">{{@$details->getUserDetails->dob}}</p>
                                                     </div>
+                                                     <br>
+                                                     
+
+                                                      <div class="about-info-p">
+                                                        <strong>User Provided Transaction Type</strong>
+                                                        <br>
+                                                        <p class="text-muted">@if(@$details->getUserDetails->trans_type=="PPY")
+                                                            PhonePe Number
+                                                            @elseif(@$details->getUserDetails->trans_type=="GPY")
+                                                            GPay Number
+
+                                                            @elseif(@$details->getUserDetails->trans_type=="PTM")
+                                                            Paytm Number
+
+                                                            @elseif(@$details->getUserDetails->trans_type=="BNK")
+                                                            Bank
+
+                                                            @elseif(@$details->getUserDetails->trans_type=="UPI")
+
+                                                            UPI ID
+
+                                                            @else
+                                                            N/A
+
+                                                            @endif
+                                                        </p>
+                                                    </div>
+
+                                                      <div class="about-info-p">
+                                                        <strong>User Provided Transaction Details</strong>
+                                                        <br>
+                                                        <p class="text-muted">@if(@$details->getUserDetails->trans_type=="PPY")
+                                                            <b>{{@$details->getUserDetails->trans_number}}</b>
+                                                            @elseif(@$details->getUserDetails->trans_type=="GPY")
+                                                           {{@$details->getUserDetails->trans_number}}
+
+                                                            @elseif(@$details->getUserDetails->trans_type=="PTM")
+                                                            {{@$details->getUserDetails->trans_number}}
+
+                                                            @elseif(@$details->getUserDetails->trans_type=="BNK")
+                                                           Bank name: {{@$details->getUserDetails->bank_name}}
+                                                           <br>
+                                                            <br>
+                                                           Account No: {{@$details->getUserDetails->acc_no}}
+                                                           <br>
+                                                            <br>
+                                                           Ifsc Code: {{@$details->getUserDetails->ifsc_code}}
+                                                           <br>
+                                                            <br>
+                                                           Account Holder name: {{@$details->getUserDetails->bank_user_name}}
+
+
+                                                            @elseif(@$details->getUserDetails->trans_type=="UPI")
+
+                                                           {{@$details->getUserDetails->upi}}
+
+                                                            @else
+                                                            N/A
+
+                                                            @endif
+                                                        </p>
+                                                    </div>
+
+                                                     <br>
+                                                  
+
                                                     <div class="about-info-p m-b-0">
+                                                        <strong>Fee</strong>
+                                                        <br>
+                                                        <p class="text-muted">{{@$details->getUserDetails->getCourseDetails->due_amount}}</p>
+                                                    </div>
+
+                                                     <div class="about-info-p m-b-0">
+                                                        <strong>Faciliation Fees</strong>
+                                                        <br>
+                                                        <p class="text-muted">{{@$details->getUserDetails->getPaperDetails->amount}}</p>
+                                                    </div>
+
+
+                                                      <div class="about-info-p m-b-0">
+                                                        <strong>GST (rs/-)</strong>
+                                                        <br>
+                                                        <p class="text-muted">{{round(@$details->gst,2)}}</p>
+                                                    </div>
+
+                                                      <div class="about-info-p m-b-0">
                                                         <strong>Amount (rs/-)</strong>
                                                         <br>
                                                         <p class="text-muted">{{@$details->amount}}</p>
@@ -121,6 +206,56 @@
                                                         <br>
                                                         <p class="text-muted">{{@$details->created_at}}</p>
                                                     </div>
+                            
+                                                 
+                                                </div>
+                                            </div>
+                                            <!-- Personal-Information -->
+                                            <!-- Languages -->
+                                           {{--  <div class="panel panel-default panel-fill">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Languages</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <ul>
+                                                        <li>English</li>
+                                                        <li>Franch</li>
+                                                        <li>Greek</li>
+                                                    </ul>
+                                                </div>
+                                            </div> --}}
+                                            <!-- Languages -->
+                                        </div>
+                                       
+
+                                        <div class="col-md-6">
+                                            <!-- Personal-Information -->
+                                            <div class="panel panel-default panel-fill">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Promo code Information</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                               
+                                                    @php
+                                                    $promo=App\Models\PromoCode::where('user_id',@$details->getUserDetails->promo_code_user_id)->first();
+                                                    @endphp
+                                                    @if($promo)
+                                                     <div class="about-info-p">
+                                                        <strong>Promo code used</strong>
+                                                        <br>
+                                                        <p class="text-muted">{{@$promo->promo_code}}</p>
+                                                    </div>
+                                                    <div class="about-info-p">
+                                                        <strong>Promo code user name</strong>
+                                                        <br>
+                                                        <p class="text-muted">{{@$promo->getUserDetails->name}}</p>
+                                                    </div>
+                                                    @else
+
+                                                    <p>User did not used any invite code.</p>
+
+                                                    @endif
+                                                    
                             
                                                  
                                                 </div>

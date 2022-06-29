@@ -80,6 +80,7 @@
           .input-placeholder input[name="name"]:valid + .placeholder {
             display: none;
           }
+
           .input-placeholder input.place-1:placeholder-shown + .placeholder {
           display: block;
           }
@@ -130,11 +131,11 @@
             <h3>REGISTRATION FORM</h3>
             <div class="col-md-6 col-12">
               <div class="form-card">
-                <form method="post" action="{{route('reg.one')}}" id="frm">
+                <form method="post" action="{{route('reg.one')}}" id="frm" style="text-align: left;">
                   @csrf
                   <div class="form-inner-card">
                     <div class="input-placeholder">
-                      <input type="text" name="name" class="form-control" required style="margin-bottom: 10px" />
+                      <input type="text" name="name" class="form-control" required style="margin-bottom: 10px"  />
                       <div class="placeholder">
                         Name<span> *</span>
                       </div>
@@ -144,14 +145,187 @@
                         <input type="text" name="email" class="form-control place-1" required 
                         pattern="^([A-Za-z0-9_\-\.]+)@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,3})$"
                         onchange="this.setAttribute('value', this.value);" placeholder=" "
-                         style="margin-bottom: 10px" />
+                         style="margin-bottom: 10px" id="email"  />
                         <div class="placeholder">
                           email<span> *</span>
                         </div>
                       </div>
+
+                       <div class="input-placeholder">
+                        <input type="text" name="email" class="form-control place-1" required 
+                        pattern="^([A-Za-z0-9_\-\.]+)@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,3})$"
+                        onchange="this.setAttribute('value', this.value);" placeholder=" "
+                         style="margin-bottom: 10px" id="con_email"  />
+                        <div class="placeholder">
+                         Confirm email<span> *</span>
+                        </div>
+                      </div>
+
+
+                      {{-- selecet box for phonepay googlepay paytm upi and bank --}}
+
+                       <!-- --select box-- -->
+                        <div class="input-placeholder">
+                          <select class="form-control" name="type" id="type"  style="margin-bottom: 10px" onchange="trans(this.value)">
+                            <option value="">  Select Your Transaction Details</option>
+                            <option value="PPY">PhonePe</option>
+                            <option value="GPY">Google Pay</option>
+                            <option value="PTM">Paytm</option>
+                            <option value="BNK">Bank</option>
+                            <option value="UPI">UPI ID</option>
+                          
+                          </select>
+                          <div class="placeholder">
+                           Select Your Transaction Details
+                          </div>
+                        </div>
+                        <script>
+                          function trans(v){
+                           // alert(v);
+                            if(v=="UPI"){
+                             
+                              $("#others_val").val('');
+                              $("#others").hide();
+
+                              $(".bnk").hide();
+                              $("#bnk_user").val('');
+                              $("#bnk_name").val('');
+                              $("#bnk_acc_no").val('');
+                              $("#ifsc").val('');
+                              
+                              $("#upi").show();
+
+                              //val null to bank values
+                            }
+                            else if(v=="PPY" || v== "GPY"  || v=="PTM"){
+                              $("#upi_val").val('');
+                              $("#upi").hide();
+
+                              $(".bnk").hide();
+                              $("#bnk_user").val('');
+                              $("#bnk_name").val('');
+                              $("#bnk_acc_no").val('');
+                              $("#ifsc").val('');
+
+
+                              $("#others").show();
+                              if(v=="PPY"){
+                                 $("#pgp").html('PhonePe');
+                              }else if(v=="GPY"){
+                                $("#pgp").html('GPay')
+
+                              }else{
+                                $("#pgp").html('Paytm')
+
+                              }
+                             
+                            
+                            }
+                            else if(v=="BNK"){
+                              $("#upi_val").val('');
+                               $("#upi").hide();
+
+                              $("#others_val").val('');
+                               $("#others").hide();
+
+                              $(".bnk").show();
+                            }
+                            else{
+                              $("#upi_val").val('');
+                               $("#upi").hide();
+
+                                $("#others_val").val('');
+                               $("#others").hide();
+
+                                $(".bnk").hide();
+                              $("#bnk_user").val('');
+                              $("#bnk_name").val('');
+                              $("#bnk_acc_no").val('');
+                              $("#ifsc").val('');
+
+                            }
+                          }
+                        </script>
+          
+                        {{-- phpe gpay paytm number staer --}}
+
+                       <div class="input-placeholder" id="others" style="display: none;">
+                        <input type="tel" name="others_num" id="others_val" class="form-control place-1"  
+                        onchange="this.setAttribute('value', this.value);" pattern="^\d{10}$" title="Please enter 10 digit number" placeholder=" "
+                         style="margin-bottom: 10px" />
+                        <div class="placeholder">
+                          <span style="color: #7a7a7a;" id="pgp">  </span>
+                          Number<span> *</span>
+                        </div>
+                      </div>
+
+                      {{-- bank start --}}
+
+                       <div class="input-placeholder bnk" style="display: none;">
+                        <input type="text" name="bnk_name" id="bnk_name" class="form-control place-1"  
+                        onchange="this.setAttribute('value', this.value);" placeholder=" "
+                         style="margin-bottom: 10px" />
+                        <div class="placeholder">
+                         Bank Name<span> *</span>
+                        </div>
+                      </div>
+                       <div class="input-placeholder bnk" style="display: none;">
+                        <input type="text" name="bnk_acc_no" id="bnk_acc_no" class="form-control place-1"  
+                        onchange="this.setAttribute('value', this.value);" placeholder=" "
+                         style="margin-bottom: 10px" />
+                        <div class="placeholder">
+                         Bank Account No<span> *</span>
+                        </div>
+                      </div>
+                       <div class="input-placeholder bnk" style="display: none;">
+                        <input type="text" name="ifsc" id="ifsc" class="form-control place-1"  
+                        onchange="this.setAttribute('value', this.value);" placeholder=" "
+                         style="margin-bottom: 10px" />
+                        <div class="placeholder">
+                         Bank Ifsc No<span> *</span>
+                        </div>
+                      </div>
+                       <div class="input-placeholder bnk" style="display: none;">
+                        <input type="text" name="bnk_user" id="bnk_user" class="form-control place-1"  
+                        onchange="this.setAttribute('value', this.value);" placeholder=" "
+                         style="margin-bottom: 10px" />
+                        <div class="placeholder">
+                         Account Holder Name<span> *</span>
+                        </div>
+                      </div>
+
+
+                       {{-- upi start --}}
+                       <div class="input-placeholder" id="upi" style="display: none;">
+                        <input type="text" name="upi" id="upi_val" class="form-control place-1"  
+                        onchange="this.setAttribute('value', this.value);" placeholder=" "
+                         style="margin-bottom: 10px" />
+                        <div class="placeholder">
+                          UPI ID<span> *</span>
+                        </div>
+
+                      </div>
+                    <span style="margin-left: 13px;
+    font-size: 12px;
+    ">  Enter number to receive reward </span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                       <div class="form-inner-card">
                         <div class="input-placeholder">
-                          <input type="tel" name="ph" class="form-control place-1" step="any" minlength="10" placeholder=" " style="margin-bottom: 10px"  pattern="^\d{10}$" title="Please enter 10 digit number" required />
+                          <input type="tel" name="ph" class="form-control place-1" step="any" minlength="10" placeholder=" " style="margin-bottom: 10px"  pattern="^\d{10}$" title="Please enter 10 digit number"  required />
                           <div class="placeholder">
                             phone number<span> *</span>
                           </div>
@@ -237,6 +411,41 @@
         // $('.vmtCaptchaError').hide();
         // }
         $("#frm").submit(function() {
+          var email=$("#email").val();
+          var conEmail=$("#con_email").val();
+         // alert($("#type").val());
+          if(email!=conEmail){
+           // console.log("not match");
+            alert("Email and confirm email is not matching");
+            return false;
+          }
+
+         else if( ($("#type").val()=="PPY") || ($("#type").val()=="GPY") ||  ($("#type").val()=="PTM") ) {
+            if($("#others_val").val().length < 1){
+              alert("Enter Your Online Transaction Number");
+              return false;
+            }
+          }
+          else if($("#type").val()=="BNK"){
+            if(  ($("#bnk_user").val().length < 1 )|| ($("#bnk_name").val().length < 1) || ($("#bnk_acc_no").val().length < 1 ) || ($("#ifsc").val().length < 1) ){
+              alert("enter all bank details");
+              return false;
+            }
+           
+
+          }else if($("#type").val()=="UPI"){
+            if($("#upi_val").val().length < 1){
+              alert("Enter Your Upi Id");
+              return false;
+            }
+
+          }
+
+
+
+
+
+
         //alert(moCapt);
         if (moCapt == null || moCapt == '') {
         $('.moCaptchaError').show();

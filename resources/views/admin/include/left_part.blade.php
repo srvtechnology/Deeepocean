@@ -93,8 +93,40 @@ padding:15px 33px 9px 11px;
           <li>
             <li> <a href="{{route('admin.edit.view')}}" class="{{request()->segment(2)=='edit-profile'?'waves-effect active':''}}" ><i class="fas fa-user-edit"></i><span> Edit Profile </span></a> </li>
 
-            
-             <li><a href="{{route('paid.users')}}" class="{{request()->segment(2)=='paid-users'?'waves-effect active abc':''}}"><i class="fas fa-money-bill-wave"></i><span> User List </span></a></li>
+          
+
+
+
+
+
+
+
+
+
+
+
+             {{-- <li id="xyz"> <a href="#" id="abcd2" class="nav-link" ><i class="fas fa-flag"></i>   <span id="plus2" >User List <i class="fa fa-angle-down"></i>  </span> </a> 
+            <ul class="nav nav-treeview" > --}}
+
+               <li class="{{request()->segment(3)=='all-data'?' abc':''}}"><a href="{{route('paid.users')}}" class="{{request()->segment(3)=='all-data'?'waves-effect active abc':''}}"><i class="fas fa-book"></i><span>User List</span></a></li>
+                
+                <li class="{{request()->segment(3)=='success'?' abc':''}}"><a href="{{route('success.details')}}" class="{{request()->segment(3)=='success'?'waves-effect active abc':''}}"><i class="fas fa-check"></i><span>Success Pay List</span></a></li>
+
+                 <li class="{{request()->segment(3)=='failed'?' abc':''}}"><a href="{{route('failed.details')}}" class="{{request()->segment(3)=='failed'?'waves-effect active abc':''}}"><i class="fas fa-times"></i><span>Failed Pay List</span></a></li>
+
+                  <li class="{{request()->segment(3)=='inprogress'?' abc':''}}"><a href="{{route('inprogress.details')}}" class="{{request()->segment(3)=='inprogress'?'waves-effect active abc':''}}"><i class="fas fa-spinner"></i><span>InProgress Pay List </span></a></li>
+           {{--  </ul> --}}
+
+
+
+
+
+
+
+
+
+
+             </li>
 
              <li style=""><a href="{{route('promo.list')}}" class="{{request()->segment(2)=='users-promo-code'?'waves-effect active abc':''}}"><i class="fas fa-sitemap"></i><span>Users Promo Code </span></a></li>
             
@@ -166,9 +198,9 @@ padding:15px 33px 9px 11px;
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
   $(document).ready(function(){
-    @if(Route::is('admin.dashboard.home') || Route::is('admin.edit.view') || Route::is('paid.users') || Route::is('paid.users') || Route::is('contact.list')  || Route::is('promo.list')  || Route::is('promo.details'))
+    @if(Route::is('admin.dashboard.home') || Route::is('admin.edit.view') || Route::is('contact.list')  || Route::is('promo.list')  || Route::is('promo.details') || Route::is('paid.users') || Route::is('success.details') || Route::is('failed.details') || Route::is('inprogress.details') || Route::is('view.details'))
     $("#plus").html('CMS Management <i class="fa fa-angle-down" aria-hidden="true">  </i> ');
-    //$("#minus").hide();
+    //$("#minus").hide();view.details
     @else
     $("#plus").html('CMS Management <i class="fa fa-angle-right" aria-hidden="true"></i> ');
      // $("#minus").show();
@@ -179,6 +211,7 @@ padding:15px 33px 9px 11px;
 
   $("#abcd").click(function(){
     //console.log($('#plus').html());
+    //alert("jlj");
    
      if ($('#plus').html() == 'CMS Management <i class="fa fa-angle-down" aria-hidden="true">  </i> ') {
       $("#plus").html( 'CMS Management <i class="fa fa-angle-right" aria-hidden="true"></i> ');
@@ -191,3 +224,50 @@ padding:15px 33px 9px 11px;
      }
   });
 </script>
+
+
+
+
+{{--   @if(Route::is('paid.users') || Route::is('success.details') || Route::is('failed.details') || Route::is('inprogress.details'))
+    
+    $("#abcd2").trigger('click');
+     $("#plus2").html('User List <i class="fa fa-angle-right" aria-hidden="true"></i> ');
+    @else
+   $("#plus2").html('User List <i class="fa fa-angle-down" aria-hidden="true">  </i> ');
+    //$("#minus").hide();
+    @endif
+  }); --}}
+{{-- <script>
+
+
+
+   $(document).ready(function(){
+   @if(Route::is('paid.users') || Route::is('success.details') || Route::is('failed.details') || Route::is('inprogress.details'))
+  $("#plus2").html('User List <i class="fa fa-angle-right" aria-hidden="true"></i> ');
+    //$("#minus").hide();
+       $("#abcd2").trigger('click');
+        $("#xyz").trigger('click');
+    @else
+    $("#plus2").html('User List <i class="fa fa-angle-down" aria-hidden="true">  </i> ');
+   
+    @endif
+  });
+  
+  
+</script>
+<script>
+  $("#abcd2").click(function(){
+   
+    //console.log($('#plus2').html());
+   
+     if ($('#plus2').html() == 'User List <i class="fa fa-angle-down" aria-hidden="true">  </i> ') {
+      $("#plus2").html( 'User List <i class="fa fa-angle-right" aria-hidden="true"></i> ');
+     } 
+     else if($('#plus2').html() == 'User List <i class=" fa fa-angle-right" aria-hidden="true"></i> '){
+       $("#plus2").html('User List <i class="fa fa-angle-down" aria-hidden="true">  </i> ');
+     }
+     else {
+      $("#plus2").html('User List <i class="fa fa-angle-down" aria-hidden="true">  </i> ');
+     }
+  });
+</script> --}}

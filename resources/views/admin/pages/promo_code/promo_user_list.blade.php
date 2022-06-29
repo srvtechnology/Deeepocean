@@ -87,6 +87,8 @@
 														<ul>
 															
 															<li><a href="{{route('promo.details',$value->id)}}">View Details </a></li>
+															<li><a onclick="return confirm('Are you sure want to delete?')" href="{{route('promo.delete',$value->id)}}">Soft Delete</a></li>
+
 															
 															
 															
@@ -129,7 +131,7 @@
 var resizefunc = [];
 </script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
 <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
 <script>
 function fun(id){
@@ -165,7 +167,7 @@ var t = $('#example').DataTable( {
   
 
  ],
-"order": [[ 4, 'desc' ]]
+//"order": [[ 4, 'desc' ]]
 } );
 
 t.on( 'order.dt search.dt', function () {

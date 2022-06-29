@@ -163,14 +163,14 @@
                   <a target="_blank" href="https://www.facebook.com/Deeep-Ocean-101116969207296">
                     <i class="fab fa-facebook"></i>
                   </a>
-                  <a target="_blank" href="https://www.instagram.com/deeepoceanedtech/">
+                  <a target="_blank" href="https://www.instagram.com/deeepoceanalternativelearning/">
                     <i class="fab fa-instagram"></i>
                   </a>
                   <a target="_blank" href="https://www.youtube.com/channel/UCNabmmQ-_9J0WxvUxCoykBA">
                     <i class="fab fa-youtube"></i>
                   </a>
                 </div>
-                {{--  <button class="btn btn-outline-primary btn-sm">SHARE NOW</button> --}}
+                <button class="btn btn-outline-primary btn-sm" onclick="location.href='{{route('reg.one.show')}}'">REGISTER</button>
               </div>
             </div>
             <hr class="footer-line">

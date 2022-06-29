@@ -73,7 +73,7 @@
 
                                      <div class="form-group rm50">
                                         <label for="title">Promo Code Price <span style="color: red;">*</span></label>
-                                        <input type="number"  class="form-control"  placeholder="Enter course"  name="promo_value" >
+                                        <input type="number"  class="form-control"  placeholder="Enter promo code price"  name="promo_value" >
                                     </div> 
                                     
                                     

@@ -65,6 +65,7 @@ class RegController extends Controller
             'email' => 'required',
             'ph' => 'required|min:10',
             'course' => 'required',
+           // 'type' => 'required',
         ]);
 
     	   $ins=new User();
@@ -72,6 +73,18 @@ class RegController extends Controller
     	   $ins->email=$request->email;
     	   $ins->mobile=$request->ph;
     	   $ins->course=$request->course;
+         $ins->trans_type=@$request->type;
+
+         //phpe gpay paytm number
+         $ins->trans_number=@$request->others_num;
+         //bank
+         $ins->bank_name=@$request->bnk_name;
+         $ins->acc_no=@$request->bnk_acc_no;
+         $ins->ifsc_code=@$request->ifsc;
+         $ins->bank_user_name=@$request->bnk_user;
+         //upi
+         $ins->upi=@$request->upi;
+
     	   $ins->slug=str_slug($request->name.time());
 
     	   $ins->save();
@@ -151,8 +164,10 @@ class RegController extends Controller
             'customerEmail' => $customerEmail,
             'customer_id'  => $customerId,
             'amount' => $amount,
-            'created_at' => $ctime,
+           'created_at' => $ctime,
+            'updated_at' => $ctime,
             'status_id' => 3,
+            'gst' => $request->gst,
         ]);
         $secretKey =  $this->SECRET_KEY;
         //dd( $orderId);
@@ -253,8 +268,8 @@ class RegController extends Controller
 
 
     public function chk_promo(Request $request){
-      $srch=PromoCode::where('promo_code',$request->promo_code)->count();
-       $user_Details=PromoCode::where('promo_code',$request->promo_code)->first();
+      $srch=PromoCode::where('promo_code',$request->promo_code)->where('is_delete','N')->count();
+       $user_Details=PromoCode::where('promo_code',$request->promo_code)->where('is_delete','N')->first();
        if($srch>0){
         $paper_details=PaperModel::where('id',$request->paper_id)->first();
         $promo_value=$paper_details->promo_value;

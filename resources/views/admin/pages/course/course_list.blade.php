@@ -61,7 +61,7 @@
 													<th>S.NO</th>
 													<th>Course Name</th>
 													
-													<th>Due Amount</th>
+													<th>Fee</th>
 													<th>Status</th>
 													<th class="rm07">Action</th>
 												</tr>

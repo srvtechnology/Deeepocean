@@ -62,7 +62,7 @@
 													<th>Paper name</th>
 													<th>Subject name</th>
 													<th>Course name</th>
-													<th>Amount (rs/-)</th>
+													<th>Facilitation Fee (rs/-)</th>
 													<th>Promo Price (rs/-)</th>
 													<th>Status</th>
 													<th class="rm07">Action</th>
